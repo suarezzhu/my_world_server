@@ -3,7 +3,6 @@ package v1
 import (
 	"encoding/json"
 	"github.com/EDDYCJY/go-gin-example/models"
-	"github.com/EDDYCJY/go-gin-example/pkg/app"
 	"github.com/EDDYCJY/go-gin-example/pkg/e"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -19,22 +18,23 @@ type User struct {
 	email        string `json:"email"`
 }
 
-func AddUser(c *gin.Context) {
-	appG := app.Gin{C: c}
-
-	name := c.Query("name")
-	url := c.Query("url")
-	notes := c.Query("notes")
-	tags := c.Query("tags")
-
-	err := models.AddSite(name, url, notes, tags)
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_TAG_FAIL, nil)
-		return
-	}
-
-	appG.Response(http.StatusOK, e.SUCCESS, nil)
-}
+//
+//func AddUser(c *gin.Context) {
+//	appG := app.Gin{C: c}
+//
+//	name := c.Query("name")
+//	url := c.Query("url")
+//	notes := c.Query("notes")
+//	tags := c.Query("tags")
+//
+//	err := models.AddSite(name, url, notes, tags)
+//	if err != nil {
+//		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_TAG_FAIL, nil)
+//		return
+//	}
+//
+//	appG.Response(http.StatusOK, e.SUCCESS, nil)
+//}
 
 func GetUserInfo(c *gin.Context) {
 	data, _ := c.GetRawData()

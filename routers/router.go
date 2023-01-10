@@ -39,8 +39,11 @@ func InitRouter() *gin.Engine {
 		//获取用户信息
 		apiv1.POST("/user/userInfo", v1.GetUserInfo)
 		//apiv1.POST("/user/userInfoList", v1.GetUserInfoList)
+
+		//网站相关
 		apiv1.POST("/addSite", v1.AddSite)
 		apiv1.GET("/getSites", v1.GetSites)
+		apiv1.GET("/getAllSites", v1.getAllSites)
 
 		//---😄我是分割线-------------------------
 		//获取标签列表
