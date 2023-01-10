@@ -43,6 +43,8 @@ func Setup() {
 	db.Callback().Delete().Replace("gorm:delete", deleteCallback)
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
+	// 启用Logger，显示详细日志
+	db.LogMode(true)
 }
 
 // CloseDB closes database connection (unnecessary)

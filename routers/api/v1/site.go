@@ -7,18 +7,27 @@ import (
 	"github.com/EDDYCJY/go-gin-example/pkg/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
+
+type Site struct {
+	id   int    `form:"id" valid:"Required;Min(1)"`
+	name string `form:"name" valid:"Required;MaxSize(100)"`
+	url  string `form:"url" valid:"Required;MaxSize(100)"`
+	note string `form:"note" valid:"Required;MaxSize(255)"`
+	tag  string `form:"tag" valid:"Required;MaxSize(255)"`
+}
 
 func AddSite(c *gin.Context) {
 	appG := app.Gin{C: c}
 
 	name := c.Query("name")
 	url := c.Query("url")
-	notes := c.Query("notes")
-	tags := c.Query("tags")
-	typeId := c.Query("type")
+	note := c.Query("note")
+	tag := c.Query("tag")
+	type_id := c.Query("type_id")
 
-	err := models.AddSite(name, url, notes, tags, typeId)
+	err := models.AddSite(name, url, note, tag, type_id)
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_TAG_FAIL, nil)
 		return
@@ -46,9 +55,17 @@ func GetSites(c *gin.Context) {
 }
 
 // 获取全部网站地址
-func getAllSites(c *gin.Context) {
+func GetAllSites(c *gin.Context) {
+
 	code := e.SUCCESS
-	data := models.GetAllSites()
+	name := "%" + c.Query("name") + "%"
+	url := "%" + c.Query("url") + "%"
+	note := "%" + c.Query("note") + "%"
+	tag := "%" + c.Query("tag") + "%"
+	pageSize, _ := strconv.Atoi(c.Query("pageSize"))
+	pageNum, _ := strconv.Atoi(c.Query("pageNum"))
+
+	data := models.GetAllSites2(name, url, note, tag, pageNum, pageSize)
 	c.JSON(http.StatusOK, gin.H{
 		"code": code,
 		"msg":  e.GetMsg(code),

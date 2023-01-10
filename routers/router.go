@@ -43,7 +43,7 @@ func InitRouter() *gin.Engine {
 		//网站相关
 		apiv1.POST("/addSite", v1.AddSite)
 		apiv1.GET("/getSites", v1.GetSites)
-		apiv1.GET("/getAllSites", v1.getAllSites)
+		apiv1.GET("/getAllSites", v1.GetAllSites)
 
 		//---😄我是分割线-------------------------
 		//获取标签列表
